@@ -1,35 +1,79 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import StepSidebar from './components/Stepsidebar'; // au lieu de Sidebar
+import Step1 from './components/Step/Step1';
+import Step2 from './components/Step/step2';
+import Step3 from './components/Step/Step3';
+import Step4 from './components/Step/step4';
+import ThankYou from './components/ThankYou';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+
+const App = () => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    nom: '',
+    email: '',
+    motDePasse: '',
+    abonnement: '',
+    duree: 'mensuel',
+    options: [],
+  });
+
+  const nextStep = () => setStep(prev => Math.min(prev + 1, 5));
+  const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleAbonnement = (value) => {
+    setFormData(prev => ({ ...prev, abonnement: value }));
+  };
+
+  const toggleDuree = () => {
+    setFormData(prev => ({
+      ...prev,
+      duree: prev.duree === 'mensuel' ? 'annuel' : 'mensuel',
+    }));
+  };
+
+  const handleAddon = (addon) => {
+    setFormData(prev => {
+      const options = prev.options.includes(addon)
+        ? prev.options.filter(opt => opt !== addon)
+        : [...prev.options, addon];
+      return { ...prev, options };
+    });
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="multi-step-form">
+      <StepSidebar currentStep={step} />
+      <div className="form-content">
+        {step === 1 && (
+          <Step1 formData={formData} handleChange={handleChange} nextStep={nextStep} />
+        )}
+        {step === 2 && (
+          <Step2
+            abonnement={formData.abonnement}
+            duree={formData.duree}
+            handleAbonnement={handleAbonnement}
+            toggleDuree={toggleDuree}
+            nextStep={nextStep}
+            prevStep={prevStep}
+          />
+        )}
+        {step === 3 && (
+          <Step3 formData={formData} nextStep={nextStep} prevStep={prevStep} />
+        )}
+        {step === 4 && (
+          <Step4 formData={formData} handleAddon={handleAddon} nextStep={nextStep} prevStep={prevStep} />
+        )}
+        {step === 5 && <ThankYou />}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
