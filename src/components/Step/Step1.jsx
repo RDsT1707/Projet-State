@@ -1,19 +1,15 @@
 import React from 'react';
 
-const Step1 = ({ formData, updateFormData, nextStep }) => {
-  const handleChange = (e) => {
-    updateFormData({ [e.target.name]: e.target.value });
-  };
-
+const Step1 = ({ formData, handleChange, nextStep }) => {
   return (
     <div className="step1">
-      <h2>Inscription</h2>
+      <h2>personnal infos</h2>
       <label>
         Nom
         <input
           type="text"
-          name="name"
-          value={formData.name}
+          name="nom"
+          value={formData.nom}
           onChange={handleChange}
           placeholder="Ton nom"
         />
@@ -32,8 +28,8 @@ const Step1 = ({ formData, updateFormData, nextStep }) => {
         Mot de passe
         <input
           type="password"
-          name="password"
-          value={formData.password}
+          name="motDePasse"
+          value={formData.motDePasse}
           onChange={handleChange}
           placeholder="Mot de passe"
         />

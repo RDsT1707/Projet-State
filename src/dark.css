@@ -1,0 +1,22 @@
+
+body.dark-mode {
+  background: #070035ca;
+  color: #ffffff;
+}
+
+.multi-step-form.dark {
+  background: #070035;
+  color: #ffffff;
+}
+
+/* Style bouton toggle */
+button {
+  background: #0b004c;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #666;
+}

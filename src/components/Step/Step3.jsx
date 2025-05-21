@@ -1,10 +1,11 @@
 import React from 'react';
 
 const plans = {
-  basic: { name: 'Basique', priceMensuel: 10, priceAnnuel: 100 },
-  standard: { name: 'Standard', priceMensuel: 20, priceAnnuel: 200 },
-  premium: { name: 'Premium', priceMensuel: 30, priceAnnuel: 300 },
+  arcade: { name: 'Arcade', priceMensuel: 90, priceAnnuel: 90 },
+  advanced: { name: 'Standard', priceMensuel: 12, priceAnnuel: 120 },
+  pro: { name: 'Premium', priceMensuel: 15, priceAnnuel: 150 },
 };
+
 
 const Step3 = ({ formData, nextStep, prevStep }) => {
   const plan = plans[formData.abonnement];
