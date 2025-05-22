@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+// Liste des options additionnelles disponibles (add-ons)
 const addonsList = [
   { 
     name: 'Support prioritaire', 
@@ -21,6 +22,7 @@ const addonsList = [
   },
 ];
 
+// Plans d'abonnement disponibles avec prix mensuel et annuel
 const plans = {
   arcade: { nom: 'Arcade', priceMensuel: 90, priceAnnuel: 90 },
   advanced: { nom: 'Standard', priceMensuel: 12, priceAnnuel: 120 },
@@ -28,30 +30,35 @@ const plans = {
 };
 
 const Step4 = ({ formData, handleAddon, nextStep, prevStep, setStep }) => {
+  // On récupère les données nécessaires depuis le formulaire global
   const { options, duree, userInfo, abonnement } = formData;
+
+  // État local pour afficher ou non le récapitulatif
   const [showRecap, setShowRecap] = useState(false);
 
-  // Récupérer l'objet complet du plan depuis la clé abonnement
+  // On récupère l'objet du plan sélectionné à partir de la clé 'abonnement'
   const plan = abonnement ? plans[abonnement] : null;
 
-  // Calcul du prix total des options
+  // Calcul du total des prix des options sélectionnées
   const totalOptions = options.reduce((total, nomOption) => {
     const addon = addonsList.find(a => a.name === nomOption);
     if (!addon) return total;
     return total + (duree === 'annuel' ? addon.priceAnnuel : addon.priceMensuel);
   }, 0);
 
-  // Prix abonnement selon la durée
+  // Récupération du prix de l'abonnement en fonction de la durée choisie
   const prixAbonnement = plan ? (duree === 'annuel' ? plan.priceAnnuel : plan.priceMensuel) : 0;
 
-  // Total général
+  // Calcul du prix total (abonnement + options)
   const totalGeneral = prixAbonnement + totalOptions;
 
+  // Si showRecap est activé, on affiche le résumé final
   if (showRecap) {
     return (
       <div className="recap-container">
         <h2>Récapitulatif</h2>
 
+        {/* Section affichant l'abonnement sélectionné */}
         <div className="recap-section">
           <h3>Abonnement choisi</h3>
           {plan ? (
@@ -59,10 +66,11 @@ const Step4 = ({ formData, handleAddon, nextStep, prevStep, setStep }) => {
               <p>
                 <strong>{plan.nom}</strong> – {duree === 'annuel' ? `${plan.priceAnnuel} €/an` : `${plan.priceMensuel} €/mois`}
               </p>
+              {/* Bouton pour modifier l’abonnement (retour à l'étape 3) */}
               <button 
                 className="btn-link" 
                 onClick={() => {
-                  setStep(3); // Retour au step 3 abonnement
+                  setStep(3);
                   setShowRecap(false);
                 }}
               >
@@ -74,6 +82,7 @@ const Step4 = ({ formData, handleAddon, nextStep, prevStep, setStep }) => {
           )}
         </div>
 
+        {/* Section affichant les options choisies */}
         <div className="recap-section">
           <h3>Options sélectionnées</h3>
           {options.length === 0 ? (
@@ -91,10 +100,11 @@ const Step4 = ({ formData, handleAddon, nextStep, prevStep, setStep }) => {
               })}
             </ul>
           )}
+          {/* Bouton pour modifier les options (rester sur l'étape 4) */}
           <button 
             className="btn-link" 
             onClick={() => {
-              setStep(4); // Retour au step 4 options
+              setStep(4);
               setShowRecap(false);
             }}
           >
@@ -102,18 +112,20 @@ const Step4 = ({ formData, handleAddon, nextStep, prevStep, setStep }) => {
           </button>
         </div>
 
+        {/* Section affichant les infos de l'utilisateur */}
         <div className="recap-section">
           <h3>Informations utilisateur</h3>
           <p><strong>Nom :</strong> {userInfo?.nom || 'Non renseigné'}</p>
           <p><strong>Email :</strong> {userInfo?.email || 'Non renseigné'}</p>
-          {/* Autres infos si besoin */}
         </div>
 
+        {/* Section total du paiement */}
         <div className="recap-section total">
           <h3>Total</h3>
           <p><strong>{totalGeneral} € {duree === 'annuel' ? '/an' : '/mois'}</strong></p>
         </div>
 
+        {/* Boutons de navigation */}
         <div className="buttons">
           <button className="btn secondary" onClick={() => setShowRecap(false)}>Retour</button>
           <button className="btn" onClick={nextStep}>Confirmer</button>
@@ -122,10 +134,13 @@ const Step4 = ({ formData, handleAddon, nextStep, prevStep, setStep }) => {
     );
   }
 
+  // Affichage de la sélection des options additionnelles (étape classique)
   return (
     <div>
       <h2>Options additionnelles</h2>
       <p>Choisis des services supplémentaires si tu veux.</p>
+
+      {/* Liste des add-ons avec checkbox pour les sélectionner */}
       <div className="addons">
         {addonsList.map((addon) => (
           <label
@@ -147,6 +162,8 @@ const Step4 = ({ formData, handleAddon, nextStep, prevStep, setStep }) => {
           </label>
         ))}
       </div>
+
+      {/* Boutons de navigation entre étapes */}
       <div className="buttons">
         <button className="btn secondary" onClick={prevStep}>Retour</button>
         <button className="btn" onClick={() => setShowRecap(true)}>Voir récapitulatif</button>

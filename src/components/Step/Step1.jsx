@@ -3,7 +3,10 @@ import React from 'react';
 const Step1 = ({ formData, handleChange, nextStep }) => {
   return (
     <div className="step1">
-      <h2>personnal infos</h2>
+      <h2>Informations personnelles</h2>
+      <p>Merci de renseigner tes informations pour commencer ton inscription.</p>
+
+      {/* Champ : Nom */}
       <label>
         Nom
         <input
@@ -12,8 +15,11 @@ const Step1 = ({ formData, handleChange, nextStep }) => {
           value={formData.nom}
           onChange={handleChange}
           placeholder="Ton nom"
+          required
         />
       </label>
+
+      {/* Champ : Email */}
       <label>
         Email
         <input
@@ -22,8 +28,11 @@ const Step1 = ({ formData, handleChange, nextStep }) => {
           value={formData.email}
           onChange={handleChange}
           placeholder="Ton email"
+          required
         />
       </label>
+
+      {/* Champ : Mot de passe */}
       <label>
         Mot de passe
         <input
@@ -32,9 +41,14 @@ const Step1 = ({ formData, handleChange, nextStep }) => {
           value={formData.motDePasse}
           onChange={handleChange}
           placeholder="Mot de passe"
+          required
         />
       </label>
-      <button className="btn" onClick={nextStep}>Suivant</button>
+
+      {/* Bouton de progression */}
+      <button className="btn" onClick={nextStep}>
+        Suivant
+      </button>
     </div>
   );
 };
