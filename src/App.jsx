@@ -1,5 +1,5 @@
 // Importation des hooks React
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // Importation des composants nécessaires à chaque étape du formulaire
 import StepSidebar from './components/Stepsidebar';
@@ -150,32 +150,3 @@ const App = () => {
 };
 
 export default App;
-<!-- fake edit --> // 2025-05-22T11:33:36.020Z
-
-/* auto update */ // 2025-05-22T11:33:36.020Z
-
-<!-- fake edit --> // 2025-05-22T11:33:36.021Z
-
-/* productivity hack */ // 2025-05-22T11:34:36.021Z
-
-<!-- fake edit --> // 2025-05-22T11:34:36.022Z
-
-/* auto update */ // 2025-05-22T11:34:36.022Z
-
-<!-- fake edit --> // 2025-05-22T11:35:36.027Z
-
-/* auto update */ // 2025-05-22T11:35:36.027Z
-
-/* auto update */ // 2025-05-22T11:35:36.027Z
-
-/* auto update */ // 2025-05-22T11:36:36.041Z
-
-<!-- fake edit --> // 2025-05-22T11:36:36.042Z
-
-// waka boost // 2025-05-22T11:36:36.046Z
-
-<!-- fake edit --> // 2025-05-22T11:37:36.056Z
-
-// waka boost // 2025-05-22T11:37:36.056Z
-
-<!-- fake edit --> // 2025-05-22T11:37:36.058Z
